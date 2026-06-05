@@ -2,7 +2,7 @@
    Reset minimale + tipografia di base. Da qui costruisci il layout. */
 
 
-/* Reset */
+/* l'asterisco da solo significa prendi in considerazione tutti gli elementi ------*/
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -27,3 +27,372 @@ a {
 
 
 /* Aggiungi qui le tue regole, mobile-first. */
+:root {
+  --green: #1F7A4D;
+  --green-dark: #248F59;
+  --text: #555555;
+  --text-dark: #111111;
+  --nav-hover-bg: #EBFAF2;
+  --card-bg: #FAFAFA;
+  --copyright: #838383;
+  --white: #ffffff;
+  --black: #000000;
+  --gap: 24px;
+  /* 
+gap — spazio tra gli elementi figli di un contenitore flex.
+Non è un margine — non aggiunge spazio fuori dall'elemento, 
+solo TRA gli elementi. Es: gap: 24px mette 24px tra ogni card.
+*/
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; } 
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.6;/* 
+line-height — altezza della riga di testo.
+Es: line-height: 1.6 significa che ogni riga è alta 1.6 volte 
+la dimensione del font. Senza di lei le righe sono troppo strette 
+e il testo diventa difficile da leggere.
+*/
+}
+a { text-decoration: none; color: inherit; }/* 
+a — selettore universale per tutti i link della pagina (tag <a>)
+Il browser di default mette su ogni link: colore blu e sottolineatura.
+text-decoration: none — toglie la sottolineatura
+color: inherit — invece del blu, eredita il colore del testo dal genitore
+Senza queste due righe tutti i link del sito sarebbero blu e sottolineati.
+*/
+
+/* =====================
+   NAVBAR
+   — position: sticky per tenerla in cima allo scroll
+   — flexbox per allineare logo e link
+   ===================== */
+.navbar {
+  position: sticky; /* 
+position — controlla come l'elemento viene posizionato nella pagina.
+static: default, segue il flusso normale.
+relative: si sposta rispetto a dove sarebbe normalmente.
+absolute: si posiziona rispetto al genitore con position relative.
+fixed: rimane fisso rispetto alla finestra del browser.
+sticky: segue lo scroll fino a un punto, poi si ferma.
+*/
+  top: 0;/* 
+top — usato insieme a position. Sposta l'elemento 
+verso il basso partendo dal bordo superiore del suo 
+contenitore. Es: top: 0 significa attaccato in cima.
+Senza position non ha effetto.
+*/
+  z-index: 100; /* 
+z-index — controlla quale elemento sta sopra agli altri 
+quando si sovrappongono. Funziona solo su elementi con 
+position diverso da static. Più alto è il numero, più 
+l'elemento sta in primo piano. Es: z-index: 100 sta sopra z-index: 1.
+*/
+  background: var(--white);
+  border-bottom: 1px solid #e5e5e5;
+}
+.navbar__inner {
+  display: flex;
+  align-items: center;/* 
+align-items — proprietà flexbox. Allinea gli elementi 
+sull'asse verticale (quando flex-direction è row).
+center: centra verticalmente. flex-start: in cima. 
+flex-end: in fondo. stretch: li allunga fino a riempire.
+*/
+  justify-content: space-between;/* 
+justify-content — proprietà flexbox. Allinea gli elementi 
+sull'asse orizzontale (quando flex-direction è row).
+center: centra. space-between: primo a sinistra ultimo a destra 
+spazio uguale in mezzo. flex-start: tutti a sinistra.
+*/
+  padding: 0 16px;/* 
+padding — spazio interno tra il bordo dell'elemento e il suo contenuto.
+Es: padding: 24px aggiunge 24px di spazio dentro su tutti i lati.
+Diverso da margin che aggiunge spazio FUORI dall'elemento.
+*/
+  min-height: 52px;/* 
+min-height — altezza minima dell'elemento. 
+L'elemento non può diventare più basso di questo valore,
+ma può crescere se il contenuto è tanto.
+Es: min-height: 52px — l'elemento è almeno 52px di altezza.
+*/
+}
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green);
+}
+.navbar__links {
+  display: flex;
+  align-items: center;
+}
+.navbar__links a {
+  font-size: 0.78rem;
+  color: var(--text-dark);
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background 0.18s, color 0.18s; /* 
+transition — anima il cambiamento di una proprietà CSS nel tempo.
+Es: transition: background 0.2s significa che quando il background 
+cambia (es. all'hover) non cambia di scatto ma in 0.2 secondi.
+Rende le interazioni fluide e piacevoli.
+*/
+  white-space: nowrap;/* 
+white-space: nowrap — impedisce al testo di andare a capo.
+Il testo rimane sempre su una riga sola anche se lo spazio è poco.
+Usato sui link della navbar per evitare che vadano a capo 
+su schermi stretti.
+*/
+}
+.navbar__links a:hover {
+  background: var(--nav-hover-bg);
+  color: var(--green);
+}
+
+/* =====================
+   HERO
+   — animazione CSS di entrata con opacity e transform
+   ===================== */
+.hero {
+  background: var(--green);
+  padding: 56px 24px 52px;
+  text-align: center;/* 
+text-align — allinea il testo orizzontalmente.
+center: centra il testo. left: a sinistra. right: a destra.
+Si applica a tutto il contenuto testuale dell'elemento.
+*/
+}
+
+/* Stato iniziale: nascosto */
+.hero__title,
+.hero__sub ,
+.hero__cta  {
+  opacity: 0; /* 
+opacity — trasparenza dell'elemento. 
+Va da 0 (completamente invisibile) a 1 (completamente visibile).
+Es: opacity: 0 nasconde l'elemento ma lo spazio rimane occupato.
+Diverso da display:none che rimuove l'elemento dal flusso.
+*/
+  
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+/* Classe aggiunta da JS: appare */
+.hero__title.visible,
+.hero__sub.visible,
+ .hero__cta.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.hero__sub {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 460px;/* 
+max-width — larghezza massima dell'elemento.
+L'elemento non può diventare più largo di questo valore,
+ma può essere più stretto. Es: max-width: 460px sul testo 
+hero evita che diventi troppo largo su schermi grandi
+e resti leggibile.
+*/
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+
+/* extra informazionicursor: pointer — cambia il cursore del mouse in una manina 
+quando ci passi sopra l'elemento. Segnala all'utente 
+che quell'elemento è cliccabile. Di default gli elementi 
+non cliccabili mostrano una freccia normale.
+/*user-select: none;/* 
+user-select: none — impedisce che il testo venga selezionato quando clicchi.
+Senza: clicchi su "Identità visiva" e il browser la evidenzia in blu 
+come se volessi copiarla, rovinando l'effetto visivo del movimento.
+Con: il click funziona pulito, nessuna selezione blu.
+In pratica dice al browser "tratta questo testo come un bottone, 
+non come testo copiabile".
+*/
+
+.hero__cta {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 36px;
+  border: 2px solid var(--white);
+  border-radius: 30px;
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hero__cta:hover {
+  background: var(--white);
+  color: var(--green);
+}
+/* =====================
+   SERVIZI
+   — flexbox per le card con flex-wrap
+   ===================== */
+#servizi {
+  padding: 48px 24px;
+  background: var(--white);
+}
+.section__title {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 28px;
+}
+
+/* Contenitore card: flexbox con wrapflex-wrap
+Proprietà flexbox. Di default flex mette tutti gli elementi su una riga sola anche se non ci stanno. Con flex-wrap: wrap gli elementi vanno a capo automaticamente quando non c'è più spazio. */
+.cards__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+}
+
+/* Mobile: ogni card occupa tutta la larghezza */
+.card {
+  flex: 1 1 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 28px 20px;
+  text-align: center;
+  /* Animazione CSS hover */
+  transition: transform 0.28s cubic-bezier(.34,1.56,.64,1),
+              box-shadow 0.28s ease;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(31,122,77,0.12);
+}
+.card__icon {
+  font-size: 1.6rem;
+  color: var(--green);
+  margin-bottom: 12px;
+}
+.card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+.card__text {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* =====================
+   FOOTER
+   — flexbox per le tre colonne
+   ===================== */
+footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 32px 24px 20px;
+}
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green);
+}
+.footer__tagline {
+  font-size: 0.78rem;
+  color: #aaa;
+  margin-top: 4px;
+}
+.footer__social {
+  display: flex;
+  gap: 10px;
+}
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.social-btn:hover {
+  background: var(--green-dark);
+  color: var(--white);
+  border-color: var(--green-dark);
+}
+.footer__copy {
+  font-size: 0.75rem;
+  color: var(--copyright);
+}
+
+/* ======================
+   BREAKPOINT 768px come si fa asapere quali sono le grandezze giuste da mettere alle proprietà? si va atentativi? 
+   ====================== */
+@media (min-width: 768px) {
+  .navbar__inner { min-height: 56px; padding: 0 32px; }
+  .navbar__links a { font-size: 0.9rem; padding: 8px 14px; }
+
+  .hero { padding: 80px 40px 72px; }
+  .hero__title { font-size: 2.6rem; }
+  .hero__sub { font-size: 0.95rem; }
+
+  #servizi { padding: 64px 40px; }
+  .section__title { font-size: 1.4rem; margin-bottom: 32px; }
+
+  /* 2 card per riga: sottraiamo il gap e dividiamo per 2 */
+  .card { flex: 1 1 calc(50% - var(--gap)); }
+
+  footer { padding: 32px 40px 20px; }
+  .footer__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+  }
+  .footer__left { text-align: left; }
+}
+
+/* ======================
+   BREAKPOINT 992px
+   ====================== */
+@media (min-width: 992px) {
+  .navbar__inner { padding: 0 60px; }
+
+  .hero { padding: 100px 80px 90px; }
+  .hero__title { font-size: 3.5rem; }
+
+  #servizi { padding: 80px; }
+
+  /* 3 card per riga — gap invariato */
+  .card { flex: 1 1 calc(33.333% - var(--gap)); }
+
+  footer { padding: 32px 80px 20px; }
+}

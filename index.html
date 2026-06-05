@@ -1,34 +1,86 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloom — Studio di design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
 
-    <header id="site-header">
-      <!-- Logo + nav -->
-    </header>
+  <!-- NAVBAR navbar → la barra bianca intera-->
+  <nav class="navbar">
+    <div class="navbar__inner"> <!--navbar__inner → il contenitore invisibile che tiene insieme logo e link con flexbox-->
+      <div class="navbar__logo"> <!--l logo che appartiene alla navbar-->
+        <i class="fa-solid fa-seedling"></i> Bloom   <!--la foglia che sta sopra che ho cercato sul sito fonts-->
+      </div>
+      <div class="navbar__links">
+        <a href="#servizi">Servizi</a><!--
+scroll-behavior: smooth — applicato a html (elemento radice) 
+serve per fare lo scorrimento fluido quando clicchi i link della navbar.
+I link hanno href="#servizi" e la sezione ha id="servizi" — il # le collega.
+Senza: la pagina salta di scatto. Con: scorre dolcemente.
+Non è obbligatorio, ma migliora l'esperienza utente.--> 
 
-    <main>
+        <a href="#lavori">Lavori</a>
+        <a href="#team">Team</a>
+        <a href="#contatti">Contatti</a>
+      </div>
+    </div>
+  </nav>
 
-      <section class="hero">
-        <!-- Titolo, sottotitolo, bottone CTA -->
-      </section>
+  <!-- HERO la sezione grande in cima alla pagina, quella con lo sfondo colorato e il titolo principale, si chiama tradizionalmente hero.-->
+  <section class="hero">
+    <h1 class="hero__title">Trasformiamo idee in design</h1>
+    <p class="hero__sub">Siamo uno studio creativo. Identità visiva, web e Web design per chi vuole farsi notare.</p>
+         
+        
+        <!--span class="hero__word">Identità visiva</span>, web e 
+         <span class="hero__word">motion graphic</span> per chi vuole farsi notare.</p> queste span servono esclusivamente per provare a fare qualcosa di diverso ossia muovere solo alcune parole o frasi e poi modificarle nel css potevo tranquillamnete scriverle nel p class hero sub dopo la frase studio creativo ecc..-->
+           <a href="#contatti" class="hero__cta">Inizia un progetto</a>
+  </section>
 
-      <section class="services">
-        <!-- 3 card servizi: icona + titolo + descrizione -->
-      </section>
+  <!-- SERVIZI -->
+  <section id="servizi">
+    <h2 class="section__title">I nostri servizi</h2>
+    <div class="cards__grid">
+      <div class="card">
+        <div class="card__icon"><i class="fa-solid fa-pen-nib"></i></div> <!--link dell'altro logoFont Awesome ha deciso di riutilizzare il tag <i> per le icone -->
+        <div class="card__title">Identità visiva</div>
+        <p class="card__text">Logo, palette, tipografia e linee guida per un brand coerente, riconoscibile e duraturo.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon"><i class="fa-solid fa-display"></i></div>
+        <div class="card__title">Web design</div>
+        <p class="card__text">Siti vetrina e landing page responsive, accessibili e ottimizzate per dispositivi mobili.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon"><i class="fa-solid fa-film"></i></div>
+        <div class="card__title">Motion graphic</div>
+        <p class="card__text">Animazioni e brevi video per raccontare il prodotto, i social e le campagne pubblicitarie.</p>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer__inner">
+      <div class="footer__left">
+        <div class="footer__brand">
+          <i class="fa-solid fa-seedling"></i> Bloom
+        </div>
+        <div class="footer__tagline">Studio di design fondato nel 2026.</div>
+      </div>
+      <div class="footer__social">
+        <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" class="social-btn" aria-label="facebook"><"></i></a>
+      </div>
+      <div class="footer__copy">&copy; 2026 Bloom</div>
+    </div>
+  </footer>
 
-    <footer id="site-footer">
-      <!-- Logo, social icons, copyright -->
-    </footer>
-
-    <script src="script.js"></script>
-  </body>
+  <script src="assets/js/script.js"></script>
+</body>
 </html>
