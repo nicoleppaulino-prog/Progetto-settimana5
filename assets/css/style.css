@@ -1,32 +1,11 @@
 /* Bloom — Week Project Settimana V
-   Reset minimale + tipografia di base. Da qui costruisci il layout. */
+  */
 
 
 /* l'asterisco da solo significa prendi in considerazione tutti gli elementi ------*/
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #1a1a1a;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
 
 
-/* Aggiungi qui le tue regole, mobile-first. */
+/* Aggiungi qui le tue regole, mobile-first, intendo schermo normale da telefono poi le  misure piu grandi dopo. */
 :root {
   --green: #1F7A4D;
   --green-dark: #248F59;
@@ -183,7 +162,7 @@ Diverso da display:none che rimuove l'elemento dal flusso.
   
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-/* Classe aggiunta da JS: appare */
+/* Classe, questo è importante perche ora il testo che prima era invisibile si vede grazie a opacty 1*/
 .hero__title.visible,
 .hero__sub.visible,
  .hero__cta.visible{
@@ -258,7 +237,7 @@ non come testo copiabile".
   margin-bottom: 28px;
 }
 
-/* Contenitore card: flexbox con wrapflex-wrap
+/* Contenitore card: flexbox con wrap, flex-wrap
 Proprietà flexbox. Di default flex mette tutti gli elementi su una riga sola anche se non ci stanno. Con flex-wrap: wrap gli elementi vanno a capo automaticamente quando non c'è più spazio. */
 .cards__grid {
   display: flex;
@@ -266,7 +245,7 @@ Proprietà flexbox. Di default flex mette tutti gli elementi su una riga sola an
   gap: var(--gap);
 }
 
-/* Mobile: ogni card occupa tutta la larghezza */
+/* Mobile: ogni card occupa tutta la larghezza poi csmbai per le altre responsive*/
 .card {
   flex: 1 1 100%;
   border: 1px solid #e5e5e5;
@@ -355,9 +334,10 @@ footer {
 
 /* ======================
    BREAKPOINT 768px come si fa asapere quali sono le grandezze giuste da mettere alle proprietà? si va atentativi? 
-   ====================== */
+   =Questa si chiama media query. È una condizione — dice al browser:
+"applica tutto quello che sta dentro le graffe solo se lo schermo è largo almeno 768px, Se lo schermo è più stretto di 768px — tipo un telefono — tutto quello che sta dentro viene ignorato completamente.===================== */
 @media (min-width: 768px) {
-  .navbar__inner { min-height: 56px; padding: 0 32px; }
+  .navbar__inner { min-height: 56px; padding: 0 32px; } /*le misure che si danno alle prprietè non sono sempre le stesse si va  atentaviti fin quando non si vede bene il progetto nello schermo con quella specifica grandezza di solito pero piu lo schermo è grande piu aumentano tutte le prpoprietaà , si deve pero tenere sempre conto della prima misura su MObile*/
   .navbar__links a { font-size: 0.9rem; padding: 8px 14px; }
 
   .hero { padding: 80px 40px 72px; }
@@ -368,11 +348,47 @@ footer {
   .section__title { font-size: 1.4rem; margin-bottom: 32px; }
 
   /* 2 card per riga: sottraiamo il gap e dividiamo per 2 */
-  .card { flex: 1 1 calc(50% - var(--gap)); }
+  .card { flex: 1 1 calc(50% - var(--gap)); } /* 
+.card { flex: 1 1 calc(50% - var(--gap)); }
+
+Questa riga serve per mettere 2 card affiancate per riga a 768px.
+FLEXVOX Wrapping
+Il ragionamento è questo:
+- Lo schermo è largo 768px
+- Voglio 2 card per riga → ogni card deve essere la metà → 50%
+- Il browser calcola automaticamente: 768px ÷ 2 = 384px per card
+- Ma c'è il gap di 24px in mezzo tra le due card
+- Se le card fossero 384px + 384px + 24px di gap = 792px → non entrano nello schermo!
+- Quindi tolgo il gap dal 50%: calc(50% - 24px) → ogni card diventa 360px
+- 360px + 24px di gap + 360px = 744px → entrano perfettamente!
+
+La percentuale dipende da quante card vuoi per riga, 
+indipendentemente dalla grandezza dello schermo:
+- 2 card per riga → 50%   (100 ÷ 2)
+- 3 card per riga → 33.333%  (100 ÷ 3)
+- 4 card per riga → 25%   (100 ÷ 4)
+- 5 card per riga → 20%   (100 ÷ 5)
+
+var(--gap) richiama la variabile --gap: 24px scritta nel :root in cima al CSS,
+invece di scrivere 24px direttamente usiamo il nome della variabile.
+*/
 
   footer { padding: 32px 40px 20px; }
   .footer__inner {
-    flex-direction: row;
+    flex-direction: row;/* 
+flex-direction — decide in che direzione si mettono gli elementi 
+dentro un contenitore flex.
+
+4 valori:
+- row          → in riga, da sinistra a destra (default del browser)
+- column       → in colonna, uno sotto l'altro
+- row-reverse  → in riga ma da destra a sinistra
+- column-reverse → in colonna ma dal basso verso l'alto
+
+footer:
+- mobile: flex-direction: column → logo, social e copyright uno sotto l'altro
+- da 768px: flex-direction: row → logo, social e copyright affiancati sulla stessa riga
+*/
     justify-content: space-between;
     align-items: center;
     text-align: left;
